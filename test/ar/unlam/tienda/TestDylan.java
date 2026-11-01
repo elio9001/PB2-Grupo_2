@@ -9,6 +9,8 @@ public class TestDylan {
 	@Test
 	public void test() {
 		fail("Not yet implemented");
+		
+	String texto = "hola";
 	}
 
 }
