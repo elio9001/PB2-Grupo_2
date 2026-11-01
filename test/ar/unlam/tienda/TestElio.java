@@ -10,6 +10,7 @@ public class TestElio {
 	public void test() {
 		fail("Not yet implemented");
 		System.out.println("wazaa");
+		int n2=3;
 	}
 
 }
