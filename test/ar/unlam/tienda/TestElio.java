@@ -9,6 +9,7 @@ public class TestElio {
 	@Test
 	public void test() {
 		fail("Not yet implemented");
+		System.out.println("wazaa");
 	}
 
 }
