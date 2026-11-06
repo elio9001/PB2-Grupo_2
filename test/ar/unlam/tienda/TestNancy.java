@@ -5,32 +5,36 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class TestNancy {
-
-	/* (si no contiene “@” y termina con “.com”)*/
+	// alta usuario
 	@Test
-	public void correoInvalidoLanzaExcepcion  () {
-	
-	}
-	@Test
-	public void noSePuedenRegistrarDosCuentasConElMismoCorreo () {
-		
-	}
-	@Test
-	public void ordenarProductosPorNombreDeFormaAscendete  () {
-		
-	}
-	@Test
-	public void ordenarLasVentasPorIdAscendenteYPrecioDescendente  () {
-		
-	}
-	@Test
-	public void lanzarNoHayVentasException() {
-		
-	}
-	@Test
-	public void lanzarNoHayProductosException() {
-		
+	public void registrarUnUsuarioCorrectamente() {
+		Tienda tienda = new Tienda();
+		Usuario usuario = new Usuario("Nancy", "nancy@gmail.com");
+		Boolean seRegistro=tienda.registrarUsuario(usuario);
+		assertTrue(seRegistro);
 	}
 
+	/* (si no contiene “@” y termina con “.com”) */
+	@Test(expected = CorreoInvalidoException.class)
+	public void correoInvalidoLanzaExcepcion() throws CorreoInvalidoException {
+		Tienda tienda = new Tienda();
+		Usuario usuario = new Usuario("Nancy", "nancyAgmail.ar");
+		tienda.registrarUsuario(usuario);
+	}
+
+	@Test
+	public void noSePuedenRegistrarDosCuentasConElMismoCorreo() {
+
+	}
+
+	@Test
+	public void ordenarProductosPorNombreDeFormaAscendete() {
+
+	}
+
+	@Test
+	public void ordenarLasVentasPorIdAscendenteYPrecioDescendente() {
+
+	}
 
 }
