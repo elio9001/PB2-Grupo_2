@@ -24,7 +24,12 @@ public class TestNancy {
 
 	@Test
 	public void noSePuedenRegistrarDosCuentasConElMismoCorreo() {
-
+		Tienda tienda = new Tienda();
+		Usuario usuario = new Usuario("Nancy", "nancy@gmail.com");
+		tienda.registrarUsuario(usuario);
+		Usuario usuario2 = new Usuario("Nancy", "nancy@gmail.com");
+		Boolean seRegistro2=tienda.registrarUsuario(usuario2);
+		assertFalse(seRegistro2);
 	}
 
 	@Test

@@ -1,5 +1,7 @@
 package ar.unlam.tienda;
 
+import java.util.Objects;
+
 public class Usuario {
 	private static Integer proximoId=0;
 	private Integer id;
@@ -36,6 +38,25 @@ public class Usuario {
 
 	public String getCorreo() {
 		return correo;
+	}
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(correo);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		return Objects.equals(correo, other.correo);
 	}
 
 
