@@ -41,5 +41,9 @@ public class TestNancy {
 	public void ordenarLasVentasPorIdAscendenteYPrecioDescendente() {
 
 	}
+	@Test
+	public void lanzarNoHayVentasException () {
+
+	}
 
 }
