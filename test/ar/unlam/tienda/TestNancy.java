@@ -35,7 +35,7 @@ public class TestNancy {
 		Boolean seRegistro2=tienda.registrarUsuario(usuario2);
 		assertFalse(seRegistro2);
 	}
-
+  /*test18*/
 	@Test
 	public void ordenarProductosPorNombreDeFormaAscendete() {
 		Tienda tienda=new Tienda();
