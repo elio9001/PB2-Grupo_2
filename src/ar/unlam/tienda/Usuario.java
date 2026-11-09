@@ -45,6 +45,16 @@ public class Usuario {
 	}
 
 
+	public String getNombre() {
+		return nombre;
+	}
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(correo);
