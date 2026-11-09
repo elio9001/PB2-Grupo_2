@@ -1,5 +1,6 @@
 package ar.unlam.tienda;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 public class Usuario {
@@ -9,10 +10,13 @@ public class Usuario {
 	private String correo;
 	
 	
+	
 	public Usuario(String nombre, String correo) {
 		this.id=++proximoId;
 		this.nombre=nombre;
 		this.correo=correo;
+	
+	
 	}
 
 
