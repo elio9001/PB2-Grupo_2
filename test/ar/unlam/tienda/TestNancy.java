@@ -2,6 +2,8 @@ package ar.unlam.tienda;
 
 import static org.junit.Assert.*;
 
+import java.util.TreeSet;
+
 import org.junit.Test;
 
 import ar.unlam.tienda.enums.Conexion;
@@ -43,7 +45,9 @@ public class TestNancy {
 		tienda.agregarProducto(mouse);
 		Producto auricular= new ProductoPeriferico(1, "Auricular Gamer", 100000.0,3,Conexion.ALAMBRICA,true );
 		tienda.agregarProducto(auricular);
-		
+		TreeSet<Producto>pOrdenado=tienda.ordenarProductosPorNombreDeFormaAscendente();
+		assertEquals("Auricular Gamer",pOrdenado.getFirst().getNombre());
+		assertEquals("Mouse Gamer",pOrdenado.getFirst().getNombre());
 	}
 
 	@Test
