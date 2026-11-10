@@ -59,7 +59,7 @@ public class TestTienda {
 		
 		tienda.actualizarPrecioDeUnProducto(1, 110000.);
 		
-		Integer precioActualizadoEsperado = 110000;
+		Double precioActualizadoEsperado = 110000.;
 		
 		assertEquals(precioActualizadoEsperado, mouse.getPrecio());
 	}
@@ -192,7 +192,7 @@ public class TestTienda {
 		tienda.agregarProductoAlCarrito(idUser, 1, 999);
 		tienda.comprar(idUser);
 	}
-	@Test
+	@Test // test 11
 	public void calcularElPrecioFinalDelUnCarritoDeProductosConGarantia() throws PrecioNegativoException, ProductoNoEncontradoException, CarritoVacioException, StockNoDisponibleExceptcion {
 		Tienda tienda = new Tienda();
 
@@ -210,7 +210,7 @@ public class TestTienda {
 		Double montoEsperado = 1100000.;
 		assertEquals(montoEsperado, montoCalculado);
 	}
-	@Test
+	@Test //test 12
 	public void CalularElPrecioFinalDeUnCarritoConProductosEnDescuento () throws PrecioNegativoException, ProductoNoEncontradoException {
 		Tienda tienda = new Tienda();
 
@@ -228,5 +228,10 @@ public class TestTienda {
 		Double montoCalculado = tienda.calcularMontoDelCarrito(123);
 		Double montoEsperado = 280000.;
 		assertEquals(montoEsperado, montoCalculado);
+	}
+	
+	@Test //test 12
+	public void calcularElPrecioFinalDelCarritoConProductosEnDescuentoYConGarantia () throws PrecioNegativoException, ProductoNoEncontradoException {
+	
 	}
 }
