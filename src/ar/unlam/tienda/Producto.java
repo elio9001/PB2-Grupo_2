@@ -2,13 +2,55 @@ package ar.unlam.tienda;
 
 import java.util.Objects;
 
-public class Producto {
+import ar.unlam.tienda.enums.Marca;
+
+public abstract class Producto {
+	private Integer codProducto;
+	private String descripcion;
+	private Integer precio;
+	private Marca marca;
 	private Integer stock;
-	private Integer codigo;
-	
-	public Producto (Integer codigo, Integer stock) {
+
+	public Producto(Integer codProducto, String descripcion, Integer precio, Marca marca, Integer stock) {
+		this.codProducto = codProducto;
+		this.descripcion = descripcion;
+		this.precio = precio;
+		this.marca = marca;
 		this.stock = stock;
-		this.codigo = codigo;
+	}
+	
+	public abstract Double calcularPrecioConDescuento();
+
+	public Integer getCodProducto() {
+		return codProducto;
+	}
+
+	public void setCodProducto(Integer codProducto) {
+		this.codProducto = codProducto;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public Integer getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Integer precio) {
+		this.precio = precio;
+	}
+
+	public Marca getMarca() {
+		return marca;
+	}
+
+	public void setMarca(Marca marca) {
+		this.marca = marca;
 	}
 
 	public Integer getStock() {
@@ -18,20 +60,10 @@ public class Producto {
 	public void setStock(Integer stock) {
 		this.stock = stock;
 	}
-	public void desAgregarStock(Integer cantidad) {
-		if (cantidad>=0) {
-			stock-=cantidad;
-		}
-	};
-
-	public Integer getCodigo() {
-		// TODO Auto-generated method stub
-		return codigo;
-	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigo);
+		return Objects.hash(codProducto);
 	}
 
 	@Override
@@ -43,8 +75,14 @@ public class Producto {
 		if (getClass() != obj.getClass())
 			return false;
 		Producto other = (Producto) obj;
-		return Objects.equals(codigo, other.codigo);
+		return Objects.equals(codProducto, other.codProducto);
 	}
+
+	public void desAgregarStock(Integer cantidad) {
+		if (cantidad>=0) {
+			stock-=cantidad;
+		}
+	};
 	
 	
 }

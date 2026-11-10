@@ -30,7 +30,7 @@ public class Tienda {
 		return null;
 	}
 
-	public void comprar(Integer idUsuario) throws CarritoVacioException, ProductoNoDisponibleException {
+	public void comprar(Integer idUsuario) throws CarritoVacioException, StockNoDisponibleExceptcion{
 		Usuario usuario = buscarUsuarioPorId(idUsuario);
 		validaciones(usuario);
 		Venta nuevaVenta = new Venta(usuario.getIdUsuario(), usuario.getCarrito());
@@ -39,20 +39,20 @@ public class Tienda {
 		vaciarCarrito(usuario);
 	}
 
-	public void validaciones(Usuario usuario) throws CarritoVacioException, ProductoNoDisponibleException {
+	public void validaciones(Usuario usuario) throws CarritoVacioException, StockNoDisponibleExceptcion{
 		validarSiElCarritoEstaVacio(usuario.getCarrito());
 		validarSiHayStockDisponible(usuario.getCarrito());
 	}
 
-	private void validarSiHayStockDisponible(HashMap<Integer, ProductoYCantidad> carrito)
-			throws ProductoNoDisponibleException {
+	private void validarSiHayStockDisponible(HashMap<Integer, ProductoYCantidad> carrito) throws StockNoDisponibleExceptcion
+			 {
 		for (Producto producto : productos) {
 			for (Map.Entry<Integer, ProductoYCantidad> entry : carrito.entrySet()) {
 				Integer key = entry.getKey();
 				ProductoYCantidad val = entry.getValue();
-				if (producto.getCodigo().equals(val.getProducto().getCodigo())) {
+				if (producto.getCodProducto().equals(val.getProducto().getCodProducto())) {
 					if (val.getCantidad() > producto.getStock()) {
-						// throw new ProductoNoDisponibleException();
+						 throw new StockNoDisponibleExceptcion();
 					}
 				}
 			}
@@ -71,7 +71,7 @@ public class Tienda {
 			for (Map.Entry<Integer, ProductoYCantidad> entry : carrito.entrySet()) {
 				Integer key = entry.getKey();
 				ProductoYCantidad val = entry.getValue();
-				if (producto.getCodigo().equals(val.getProducto().getCodigo())) {
+				if (producto.getCodProducto().equals(val.getProducto().getCodProducto())) {
 					producto.desAgregarStock(val.getCantidad());
 				}
 			}
@@ -79,33 +79,68 @@ public class Tienda {
 
 	}
 
-	public Integer stockDeUnProducto(Integer codProducto) throws ProductoNoDisponibleException {
+	public Integer stockDeUnProducto(Integer codProducto) throws ProductoNoEncontradoException {
 		Producto producto = buscarProductoPorCodigo(codProducto);
 		return producto.getStock();
 	}
 
-	private Producto buscarProductoPorCodigo(Integer codigo) throws ProductoNoDisponibleException {
+	private Producto buscarProductoPorCodigo(Integer codigo) throws ProductoNoEncontradoException {
 		for (Producto producto : productos) {
-			if (producto.getCodigo().equals(codigo)) {
+			if (producto.getCodProducto().equals(codigo)) {
 				return producto;
 			}
 		}
-		throw new ProductoNoDisponibleException();
+		throw new ProductoNoEncontradoException("el producto buscado no existe");
 	}
 
-	public void agregarProducto(Producto produ1) {
-		this.productos.add(produ1);
+	public void agregarProducto(Producto producto) throws PrecioNegativoException {
+		if (producto.getPrecio() < 0) {
+			throw new PrecioNegativoException("El precio debe ser un valor positivo");
+		}
+		this.productos.add(producto);
 	}
 
 	public void vaciarCarrito(Usuario usuario) {
 		usuario.vaciarCarrito();
 	}
 
-	public void agregarProductoAlCarrito(Integer idUsuario, Integer codProducto, Integer cantidad)
-			throws ProductoNoDisponibleException {
+	public void agregarProductoAlCarrito(Integer idUsuario, Integer codProducto, Integer cantidad) throws ProductoNoEncontradoException
+			{
 		Usuario usuario = buscarUsuarioPorId(idUsuario);
 		Producto producto = buscarProductoPorCodigo(codProducto);
 		usuario.agregarPruductoAlCarrito(producto, cantidad);
+	}
+
+	public HashSet<Producto> obtenerProductos() {
+		return this.productos;
+	}
+
+	public void darDeBajaProductoRegistrado(Integer codProducto)
+			throws ProductoNoDisponibleException, ProductoNoEncontradoException {
+		Producto productoADarDeBaja = buscarProductoPorCodigo(codProducto);
+		//if (productoADarDeBaja != null) {
+			this.productos.remove(productoADarDeBaja);
+		//}
+//		if (productoADarDeBaja == null) {
+//			throw new ProductoNoEncontradoException("No se ha podido encontrar el producto o es inexistente");
+//		}
+	}
+
+	public void actualizarPrecioDeUnProducto(Integer codProducto, Integer nuevoPrecio)
+			throws ProductoNoDisponibleException, ProductoNoEncontradoException, PrecioNegativoException {
+		Producto productoAActualizarDePrecio = buscarProductoPorCodigo(codProducto);
+
+		if (productoAActualizarDePrecio == null) {
+			throw new ProductoNoEncontradoException("No se ha podido encontrar el producto o es inexistente");
+		}
+
+		if (nuevoPrecio < 0) {
+			throw new PrecioNegativoException("El precio debe ser un valor positivo");
+		}
+
+		if (productoAActualizarDePrecio != null) {
+			productoAActualizarDePrecio.setPrecio(nuevoPrecio);
+		}
 	}
 
 }
