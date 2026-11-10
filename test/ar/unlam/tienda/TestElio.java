@@ -2,16 +2,16 @@ package ar.unlam.tienda;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;
+
+import org.junit.Before;
 import org.junit.Test;
 
+import ar.unlam.tienda.enums.Conexion;
+import ar.unlam.tienda.enums.Marca;
+import ar.unlam.tienda.enums.Parte;
+
 public class TestElio {
-	/**
-	 * Carga y control de Stock controlarLaCantidadDeProductosAgregadosAlCarrito
-	 * alQuitarUnProductoLaCatidadDeProductosDebeDisminuirEnElCarrito
-	 * alRealizarUnaVentaDisminuyeElStock
-	 * lanzarCarritoVacioExceptionCuandoSeIntenteComprarSinArticulosEnElCarrito
-	 * lanzarProductoNoDisponibleExpection
-	 **/
+
 //	@Test
 //	public void controlarLaCantidadDeProductosAgregadosAlCarrito() throws ProductoNoDisponibleException {
 //		Tienda tienda = new Tienda();

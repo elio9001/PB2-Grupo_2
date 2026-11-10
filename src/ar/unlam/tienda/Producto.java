@@ -7,16 +7,18 @@ import ar.unlam.tienda.enums.Marca;
 public abstract class Producto {
 	private Integer codProducto;
 	private String descripcion;
-	private Integer precio;
+	private Double precio;
 	private Marca marca;
 	private Integer stock;
+	private Boolean tieneDescuento;
 
-	public Producto(Integer codProducto, String descripcion, Integer precio, Marca marca, Integer stock) {
+	public Producto(Integer codProducto, String descripcion, Double precio, Marca marca, Integer stock) {
 		this.codProducto = codProducto;
 		this.descripcion = descripcion;
 		this.precio = precio;
 		this.marca = marca;
 		this.stock = stock;
+		this.tieneDescuento=false;
 	}
 	
 	public abstract Double calcularPrecioConDescuento();
@@ -37,11 +39,11 @@ public abstract class Producto {
 		this.descripcion = descripcion;
 	}
 
-	public Integer getPrecio() {
+	public Double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(Integer precio) {
+	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
 
@@ -59,6 +61,14 @@ public abstract class Producto {
 
 	public void setStock(Integer stock) {
 		this.stock = stock;
+	}
+
+	public Boolean getTieneDescuento() {
+		return tieneDescuento;
+	}
+
+	public void setTieneDescuento(Boolean tieneDescuento) {
+		this.tieneDescuento = tieneDescuento;
 	}
 
 	@Override
@@ -83,6 +93,6 @@ public abstract class Producto {
 			stock-=cantidad;
 		}
 	};
-	
+	public abstract Double precioFinal();
 	
 }

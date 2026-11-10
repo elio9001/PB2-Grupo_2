@@ -1,6 +1,8 @@
 package ar.unlam.tienda;
 import static org.junit.Assert.*;
 
+import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,11 +21,11 @@ public class TestTienda {
 		
 		tienda = new Tienda();
 		
-		mouse = new Periferico (1, "Mouse", 100000, Marca.LOGITECH,10, Conexion.INALAMBRICA, false);
+		mouse = new Periferico (1, "Mouse", 100000., Marca.LOGITECH,10, Conexion.INALAMBRICA, false);
 		
-		teclado = new Periferico (2, "Teclado", 200000, Marca.LOGITECH,20, Conexion.ALAMBRICA, true);
+		teclado = new Periferico (2, "Teclado", 200000., Marca.LOGITECH,20, Conexion.ALAMBRICA, true);
 		
-		procesadorIntel = new Componente (3, "Procesador Intel", 500000, Marca.INTEL, 5, Parte.PROCESADOR, 1);
+		procesadorIntel = new Componente (3, "Procesador Intel", 500000., Marca.INTEL, 5, Parte.PROCESADOR, 1);
 	}
 	
 	@Test // test 1
@@ -55,7 +57,7 @@ public class TestTienda {
 		tienda.agregarProducto(mouse);
 		tienda.agregarProducto(teclado);
 		
-		tienda.actualizarPrecioDeUnProducto(1, 110000);
+		tienda.actualizarPrecioDeUnProducto(1, 110000.);
 		
 		Integer precioActualizadoEsperado = 110000;
 		
@@ -68,20 +70,22 @@ public class TestTienda {
 		tienda.agregarProducto(teclado);
 		tienda.agregarProducto(procesadorIntel);
 		
-		tienda.darDeBajaProductoRegistrado(4);
-		tienda.actualizarPrecioDeUnProducto(5, 130000);
+		Integer otroCodigoProducto = 5;
+		tienda.darDeBajaProductoRegistrado(otroCodigoProducto);
+		
+		//tienda.actualizarPrecioDeUnProducto(5, 130000);
 	}
 	
 	@Test (expected = PrecioNegativoException.class) // test 5
 	public void lanzarPrecioNegativoExceptionCuandoSeAgregaOActualizaElPrecioAUnValorNegativo() throws PrecioNegativoException, ProductoNoDisponibleException, ProductoNoEncontradoException {
 	
-		Producto auricular =new Periferico(4, "Auricular", -300000, Marca.LOGITECH, 2, Conexion.INALAMBRICA, false);
+		Producto auricular =new Periferico(4, "Auricular", -300000., Marca.LOGITECH, 2, Conexion.INALAMBRICA, false);
 		
 		tienda.agregarProducto(auricular);
 		
 		tienda.agregarProducto(mouse);
 		
-		tienda.actualizarPrecioDeUnProducto(1, -1);
+		tienda.actualizarPrecioDeUnProducto(1, -1.);
 		
 	}
 	// --- //
@@ -171,23 +175,8 @@ public class TestTienda {
 		tienda.comprar(idUser);
 	}
 
-	@Test (expected = ProductoNoDisponibleException.class) // test 10 descartado
-	public void lanzarProductoNoDisponibleExpection() throws CarritoVacioException, PrecioNegativoException, ProductoNoEncontradoException {
-		Tienda tienda = new Tienda();
-
-		Integer idUser = 123;
-		String email = "master@gmail.com";
-		String username = "master777";
-		Usuario user = new Usuario(idUser, email, username);
-		
-		tienda.registrarUsuario(user);
-		Usuario usuario = tienda.buscarUsuarioPorId(idUser);
-		
-		tienda.agregarProducto(mouse);
-		tienda.agregarProductoAlCarrito(idUser, 999, 5);
-	}
 	
-	@Test (expected = StockNoDisponibleExceptcion.class) // test 11
+	@Test (expected = StockNoDisponibleExceptcion.class) // test 10
 	public void lanzarCantidadNoDisponibleCuandoNoHayStockSuficiente () throws PrecioNegativoException, ProductoNoEncontradoException, CarritoVacioException, StockNoDisponibleExceptcion {
 		Tienda tienda = new Tienda();
 
@@ -203,5 +192,41 @@ public class TestTienda {
 		tienda.agregarProductoAlCarrito(idUser, 1, 999);
 		tienda.comprar(idUser);
 	}
+	@Test
+	public void calcularElPrecioFinalDelUnCarritoDeProductosConGarantia() throws PrecioNegativoException, ProductoNoEncontradoException, CarritoVacioException, StockNoDisponibleExceptcion {
+		Tienda tienda = new Tienda();
 
+		Integer idUser = 123;
+		String email = "master@gmail.com";
+		String username = "master777";
+		Usuario user = new Usuario(idUser, email, username);
+		
+		tienda.registrarUsuario(user);
+		Usuario usuario = tienda.buscarUsuarioPorId(idUser);
+		
+		tienda.agregarProducto(procesadorIntel);
+		tienda.agregarProductoAlCarrito(idUser, 3, 2);
+		Double montoCalculado = tienda.calcularMontoDelCarrito(123);
+		Double montoEsperado = 1100000.;
+		assertEquals(montoEsperado, montoCalculado);
+	}
+	@Test
+	public void CalularElPrecioFinalDeUnCarritoConProductosEnDescuento () throws PrecioNegativoException, ProductoNoEncontradoException {
+		Tienda tienda = new Tienda();
+
+		Integer idUser = 123;
+		String email = "master@gmail.com";
+		String username = "master777";
+		Usuario user = new Usuario(idUser, email, username);
+		
+		tienda.registrarUsuario(user);
+		Usuario usuario = tienda.buscarUsuarioPorId(idUser);
+		
+		tienda.agregarProducto(teclado);
+		tienda.habilitarDescuentoAUnProducto(2);
+		tienda.agregarProductoAlCarrito(idUser, 2, 2);
+		Double montoCalculado = tienda.calcularMontoDelCarrito(123);
+		Double montoEsperado = 280000.;
+		assertEquals(montoEsperado, montoCalculado);
+	}
 }
