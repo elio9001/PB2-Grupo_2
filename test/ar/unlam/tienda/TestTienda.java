@@ -230,8 +230,36 @@ public class TestTienda {
 		assertEquals(montoEsperado, montoCalculado);
 	}
 	
-	@Test //test 12
+	@Test //test 13
 	public void calcularElPrecioFinalDelCarritoConProductosEnDescuentoYConGarantia () throws PrecioNegativoException, ProductoNoEncontradoException {
-	
+		
+		Integer idUser = 123;
+		String email = "master@gmail.com";
+		String username = "master777";
+		Usuario user = new Usuario(idUser, email, username);
+		
+		tienda.registrarUsuario(user);
+		Usuario usuario = tienda.buscarUsuarioPorId(idUser);
+		
+		tienda.agregarProducto(mouse);
+		tienda.agregarProducto(teclado);
+		tienda.agregarProducto(procesadorIntel);
+		
+		tienda.habilitarDescuentoAUnProducto(1);
+		tienda.habilitarDescuentoAUnProducto(3);
+		
+		tienda.agregarProductoAlCarrito(idUser, 1, 2); // precio = 70 * 2 = 140.000 
+		tienda.agregarProductoAlCarrito(idUser, 2, 2); // precio = 200.000 * 2 = 400.000
+		tienda.agregarProductoAlCarrito(idUser, 3, 2);  
+		Double montoCalculado = tienda.calcularMontoDelCarrito(idUser);
+		
+		Double precioFinalEsperado = 1140000. ;
+		
+		assertEquals(precioFinalEsperado, montoCalculado);
+		
+		
+		
+		
+		
 	}
 }

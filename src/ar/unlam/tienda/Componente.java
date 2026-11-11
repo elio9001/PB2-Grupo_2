@@ -2,6 +2,7 @@ package ar.unlam.tienda;
 
 import ar.unlam.tienda.enums.Marca;
 import ar.unlam.tienda.enums.Parte;
+import ar.unlam.tienda.interfaces.Garantia;
 
 public class Componente extends Producto implements Garantia{
 	private Parte parte;
@@ -19,7 +20,6 @@ public class Componente extends Producto implements Garantia{
 		return getPrecio() * 0.50;
 	}
 
-	@Override
 	public Double calcularGarantia() {
 		return super.getPrecio()*0.1;
 	}
