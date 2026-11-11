@@ -20,6 +20,7 @@ public class TestTienda {
 	private Usuario usuario1;
 	private Usuario usuario2;
 	private Usuario usuario3;
+	private Usuario usuario4;
 
 	@Before
 	public void setUp() {
@@ -28,9 +29,9 @@ public class TestTienda {
 		mouse = new Periferico(1, "Mouse", 100000., Marca.LOGITECH, 10, Conexion.INALAMBRICA, false);
 		teclado = new Periferico(2, "Teclado", 200000., Marca.LOGITECH, 20, Conexion.ALAMBRICA, true);
 		procesadorIntel = new Componente(3, "Procesador Intel", 500000., Marca.INTEL, 5, Parte.PROCESADOR, 1);
-		
-		usuario1 = new Usuario(123,"nancy@gmail.com","Nancy" );
-		usuario2 = new Usuario(124,"alumMaster.com", "Master");
+
+		usuario1 = new Usuario(123, "nancy@gmail.com", "Nancy");
+		usuario2 = new Usuario(124, "alumMaster.com", "Master");
 		usuario3 = new Usuario(125, "nadio@gmail.com", "");
 	}
 
@@ -101,8 +102,8 @@ public class TestTienda {
 
 	// --- //
 	@Test // test 6
-	public void controlarLaCantidadDeProductosAgregadosAlCarrito()
-			throws PrecioNegativoException, ProductoNoEncontradoException, CorreoInvalidoException, NombreInvalidoException {
+	public void controlarLaCantidadDeProductosAgregadosAlCarrito() throws PrecioNegativoException,
+			ProductoNoEncontradoException, CorreoInvalidoException, NombreInvalidoException {
 		Tienda tienda = new Tienda();
 
 		Integer idUser = 123;
@@ -124,8 +125,8 @@ public class TestTienda {
 	}
 
 	@Test // test 7
-	public void alQuitarUnProductoLaCatidadDeProductosDebeDisminuirEnElCarrito()
-			throws PrecioNegativoException, ProductoNoEncontradoException, CorreoInvalidoException, NombreInvalidoException {
+	public void alQuitarUnProductoLaCatidadDeProductosDebeDisminuirEnElCarrito() throws PrecioNegativoException,
+			ProductoNoEncontradoException, CorreoInvalidoException, NombreInvalidoException {
 		Tienda tienda = new Tienda();
 
 		Integer idUser = 123;
@@ -150,7 +151,8 @@ public class TestTienda {
 
 	@Test // test 8
 	public void alRealizarUnaVentaDisminuyeElStock() throws CarritoVacioException, PrecioNegativoException,
-			ProductoNoEncontradoException, ProductoNoDisponibleException, StockNoDisponibleExceptcion, CorreoInvalidoException, NombreInvalidoException {
+			ProductoNoEncontradoException, ProductoNoDisponibleException, StockNoDisponibleExceptcion,
+			CorreoInvalidoException, NombreInvalidoException {
 		Tienda tienda = new Tienda();
 
 		Integer idUser = 123;
@@ -173,8 +175,9 @@ public class TestTienda {
 	}
 
 	@Test(expected = CarritoVacioException.class) // test 9
-	public void lanzarCarritoVacioExceptionCuandoSeIntenteComprarSinArticulosEnElCarrito() throws CarritoVacioException,
-			ProductoNoDisponibleException, PrecioNegativoException, StockNoDisponibleExceptcion, CorreoInvalidoException, NombreInvalidoException {
+	public void lanzarCarritoVacioExceptionCuandoSeIntenteComprarSinArticulosEnElCarrito()
+			throws CarritoVacioException, ProductoNoDisponibleException, PrecioNegativoException,
+			StockNoDisponibleExceptcion, CorreoInvalidoException, NombreInvalidoException {
 		Tienda tienda = new Tienda();
 
 		Integer idUser = 123;
@@ -191,8 +194,9 @@ public class TestTienda {
 	}
 
 	@Test(expected = StockNoDisponibleExceptcion.class) // test 10
-	public void lanzarCantidadNoDisponibleCuandoNoHayStockSuficiente() throws PrecioNegativoException,
-			ProductoNoEncontradoException, CarritoVacioException, StockNoDisponibleExceptcion, CorreoInvalidoException, NombreInvalidoException {
+	public void lanzarCantidadNoDisponibleCuandoNoHayStockSuficiente()
+			throws PrecioNegativoException, ProductoNoEncontradoException, CarritoVacioException,
+			StockNoDisponibleExceptcion, CorreoInvalidoException, NombreInvalidoException {
 		Tienda tienda = new Tienda();
 
 		Integer idUser = 123;
@@ -209,8 +213,9 @@ public class TestTienda {
 	}
 
 	@Test // test 11
-	public void calcularElPrecioFinalDelUnCarritoDeProductosConGarantia() throws PrecioNegativoException,
-			ProductoNoEncontradoException, CarritoVacioException, StockNoDisponibleExceptcion, CorreoInvalidoException, NombreInvalidoException {
+	public void calcularElPrecioFinalDelUnCarritoDeProductosConGarantia()
+			throws PrecioNegativoException, ProductoNoEncontradoException, CarritoVacioException,
+			StockNoDisponibleExceptcion, CorreoInvalidoException, NombreInvalidoException {
 		Tienda tienda = new Tienda();
 
 		Integer idUser = 123;
@@ -229,8 +234,8 @@ public class TestTienda {
 	}
 
 	@Test // test 12
-	public void CalularElPrecioFinalDeUnCarritoConProductosEnDescuento()
-			throws PrecioNegativoException, ProductoNoEncontradoException, CorreoInvalidoException, NombreInvalidoException {
+	public void CalularElPrecioFinalDeUnCarritoConProductosEnDescuento() throws PrecioNegativoException,
+			ProductoNoEncontradoException, CorreoInvalidoException, NombreInvalidoException {
 		Tienda tienda = new Tienda();
 
 		Integer idUser = 123;
@@ -250,8 +255,8 @@ public class TestTienda {
 	}
 
 	@Test // test 13
-	public void calcularElPrecioFinalDelCarritoConProductosEnDescuentoYConGarantia()
-			throws PrecioNegativoException, ProductoNoEncontradoException, CorreoInvalidoException, NombreInvalidoException {
+	public void calcularElPrecioFinalDelCarritoConProductosEnDescuentoYConGarantia() throws PrecioNegativoException,
+			ProductoNoEncontradoException, CorreoInvalidoException, NombreInvalidoException {
 
 		Integer idUser = 123;
 		String email = "master@gmail.com";
@@ -281,7 +286,7 @@ public class TestTienda {
 	// alta usuario
 	@Test
 	public void registrarUnUsuarioCorrectamente() throws CorreoInvalidoException, NombreInvalidoException {
-		
+
 		tienda.registrarUsuario(usuario1);
 		assertEquals(1, tienda.getUsuarios().size());
 	}
@@ -293,8 +298,9 @@ public class TestTienda {
 	}
 
 	@Test
-	public void noSePuedenRegistrarDosCuentasConElMismoCorreo() throws CorreoInvalidoException, NombreInvalidoException {
-		
+	public void noSePuedenRegistrarDosCuentasConElMismoCorreo()
+			throws CorreoInvalidoException, NombreInvalidoException {
+
 		tienda.registrarUsuario(usuario1);
 		tienda.registrarUsuario(usuario1);
 		assertEquals(1, tienda.getUsuarios().size(), 0.01);
@@ -302,9 +308,9 @@ public class TestTienda {
 
 	@Test
 	public void ordenarProductosPorNombreDeFormaAscendete() throws PrecioNegativoException {
-		//Producto mouse = new ProductoPeriferico(1, "Mouse Gamer", 40000.0, 2, Conexion.ALAMBRICA, true);
+
 		tienda.agregarProducto(mouse);
-		//Producto auricular = new ProductoPeriferico(2, "Auricular Gamer", 100000.0, 3, Conexion.ALAMBRICA, true);
+
 		tienda.agregarProducto(teclado);
 		TreeSet<Producto> pOrdenado = tienda.ordenarProductosPorNombreDeFormaAscendente();
 		assertEquals("Mouse", pOrdenado.getFirst().getDescripcion());
@@ -313,9 +319,9 @@ public class TestTienda {
 
 	@Test
 	public void ordenarProductosPerifericosPorIdAscendenteYPrecioDescendente() throws PrecioNegativoException {
-		//Producto mouse = new ProductoPeriferico(1, "Mouse Gamer", 40000.0, 5, Conexion.ALAMBRICA, true);
+
 		tienda.agregarProducto(teclado);
-		//Producto auricular = new ProductoPeriferico(2, "Auricular Gamer", 100000.0, 3, Conexion.ALAMBRICA, true);
+
 		tienda.agregarProducto(mouse);
 
 		TreeSet<Periferico> pOrdenado = tienda.ordenarProductosPerifericosPorIdAscenteYPrecioDescendente();
@@ -327,9 +333,38 @@ public class TestTienda {
 	@Test(expected = NombreInvalidoException.class)
 	public void lanzarNombreInvalidoExceptionCuandoSeIntenteRegistrarUnUsuarioSinNombre()
 			throws NombreInvalidoException, CorreoInvalidoException {
-		
+
 		tienda.registrarUsuario(usuario3);
 
+	}
+
+	@Test 
+	public void obtenerUnReporteDeVentasPorIdDeUsuario() throws CorreoInvalidoException, NombreInvalidoException, PrecioNegativoException, ProductoNoEncontradoException, CarritoVacioException, StockNoDisponibleExceptcion {
+
+		tienda.registrarUsuario(usuario1);
+
+		tienda.agregarProducto(mouse);
+
+		Integer cantidad = 2;
+		tienda.agregarProductoAlCarrito(123, 1, cantidad);
+
+		tienda.comprar(123); // ingresa el idUsuario
+
+		//segundo producto
+		
+		tienda.agregarProducto(teclado);
+		tienda.agregarProductoAlCarrito(123, 2, 1);
+		tienda.comprar(123);
+		
+
+		Map<Integer, Double> reporteDeVentas = tienda.obtenerReporteDeVentasPorIdDeUsuario();
+		
+		Double posiblePrecioTotalVentasDeUsuario1 = 400000.0;
+	
+
+		assertEquals(posiblePrecioTotalVentasDeUsuario1, reporteDeVentas.get(123));
+
+		
 	}
 
 }

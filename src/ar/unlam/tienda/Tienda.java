@@ -22,14 +22,13 @@ public class Tienda {
 //		this.usuarios.add(user);
 //	}
 	public void registrarUsuario(Usuario usuario) throws CorreoInvalidoException, NombreInvalidoException {
-	validarEmail(usuario);
-	validarNombreDeUsuario(usuario);
-	this.usuarios.add(usuario);
+		validarEmail(usuario);
+		validarNombreDeUsuario(usuario);
+		this.usuarios.add(usuario);
 	}
 
-
 	private void validarNombreDeUsuario(Usuario usuario) throws NombreInvalidoException {
-		if(usuario.getNombreUsuario()==null || usuario.getNombreUsuario().isEmpty()) {
+		if (usuario.getNombreUsuario() == null || usuario.getNombreUsuario().isEmpty()) {
 			throw new NombreInvalidoException("Nombre vacio , es invalido");
 		}
 	}
@@ -40,7 +39,7 @@ public class Tienda {
 			throw new CorreoInvalidoException("Correo invalido");
 
 		}
-}
+	}
 
 	public Usuario buscarUsuarioPorId(Integer idUsuario) {
 		for (Usuario usuario : usuarios) {
@@ -54,7 +53,7 @@ public class Tienda {
 	public void comprar(Integer idUsuario) throws CarritoVacioException, StockNoDisponibleExceptcion {
 		Usuario usuario = buscarUsuarioPorId(idUsuario);
 		validaciones(usuario);
-		Venta nuevaVenta = new Venta(usuario.getIdUsuario(), usuario.getCarrito());
+		Venta nuevaVenta = new Venta(usuario.getIdUsuario(), usuario.getCarrito(),calcularMontoDelCarrito(idUsuario));
 		this.ventas.add(nuevaVenta);
 		actualizarStock(usuario.getCarrito());
 		vaciarCarrito(usuario);
@@ -165,7 +164,7 @@ public class Tienda {
 		for (Map.Entry<Integer, ProductoYCantidad> entry : usuario.getCarrito().entrySet()) {
 			Integer key = entry.getKey();
 			ProductoYCantidad val = entry.getValue();
-			suma += val.getProducto().precioFinal()*val.getCantidad();
+			suma += val.getProducto().precioFinal() * val.getCantidad();
 		}
 		return suma;
 	}
@@ -208,8 +207,7 @@ public class Tienda {
 	}
 
 	public TreeSet<Periferico> ordenarProductosPerifericosPorIdAscenteYPrecioDescendente() {
-		TreeSet<Periferico> pOrdenado = new TreeSet<Periferico>(
-				new OrdenarProdPerifericoPorIdAscYPrecioDesc());
+		TreeSet<Periferico> pOrdenado = new TreeSet<Periferico>(new OrdenarProdPerifericoPorIdAscYPrecioDesc());
 		for (Producto producto : productos) {
 			if (producto instanceof Periferico) {
 				pOrdenado.add((Periferico) producto);
@@ -218,4 +216,21 @@ public class Tienda {
 		return pOrdenado;
 	}
 
+	public Map<Integer, Double> obtenerReporteDeVentasPorIdDeUsuario() {
+		Map<Integer, Double> reporte = new HashMap<Integer, Double>();
+		for (Venta venta : ventas) {
+			Integer idUsuario = venta.getIdUsuario();
+			
+			if (reporte.containsKey(idUsuario)) {
+			Double totalActual = reporte.get(idUsuario);
+				reporte.put(idUsuario, totalActual + venta.getPrecioFinal());
+				
+			} else {
+				reporte.put(idUsuario, venta.getPrecioFinal());
+			}
+			
+		}
+		return reporte;
+
+	}
 }
