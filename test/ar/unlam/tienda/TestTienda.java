@@ -232,6 +232,6 @@ public class TestTienda {
 	
 	@Test //test 12
 	public void calcularElPrecioFinalDelCarritoConProductosEnDescuentoYConGarantia () throws PrecioNegativoException, ProductoNoEncontradoException {
-	
+		
 	}
 }
