@@ -18,9 +18,6 @@ public class Tienda {
 
 	}
 
-//	public void registrarUsuario(Usuario user) {
-//		this.usuarios.add(user);
-//	}
 	public void registrarUsuario(Usuario usuario) throws CorreoInvalidoException, NombreInvalidoException {
 		validarEmail(usuario);
 		validarNombreDeUsuario(usuario);
@@ -53,7 +50,7 @@ public class Tienda {
 	public void comprar(Integer idUsuario) throws CarritoVacioException, StockNoDisponibleExceptcion {
 		Usuario usuario = buscarUsuarioPorId(idUsuario);
 		validaciones(usuario);
-		Venta nuevaVenta = new Venta(usuario.getIdUsuario(), usuario.getCarrito(),calcularMontoDelCarrito(idUsuario));
+		Venta nuevaVenta = new Venta(usuario.getIdUsuario(), usuario.getCarrito(), calcularMontoDelCarrito(idUsuario));
 		this.ventas.add(nuevaVenta);
 		actualizarStock(usuario.getCarrito());
 		vaciarCarrito(usuario);
@@ -131,19 +128,10 @@ public class Tienda {
 		usuario.agregarPruductoAlCarrito(producto, cantidad);
 	}
 
-	public HashSet<Producto> obtenerProductos() {
-		return this.productos;
-	}
-
 	public void darDeBajaProductoRegistrado(Integer codProducto)
 			throws ProductoNoDisponibleException, ProductoNoEncontradoException {
 		Producto productoADarDeBaja = buscarProductoPorCodigo(codProducto);
-		// if (productoADarDeBaja != null) {
 		this.productos.remove(productoADarDeBaja);
-		// }
-//		if (productoADarDeBaja == null) {
-//			throw new ProductoNoEncontradoException("No se ha podido encontrar el producto o es inexistente");
-//		}
 	}
 
 	public void actualizarPrecioDeUnProducto(Integer codProducto, Double nuevoPrecio)
@@ -174,30 +162,6 @@ public class Tienda {
 		producto.setTieneDescuento(true);
 	}
 
-	public HashSet<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(HashSet<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-
-	public ArrayList<Venta> getVentas() {
-		return ventas;
-	}
-
-	public void setVentas(ArrayList<Venta> ventas) {
-		this.ventas = ventas;
-	}
-
-	public HashSet<Producto> getProductos() {
-		return productos;
-	}
-
-	public void setProductos(HashSet<Producto> productos) {
-		this.productos = productos;
-	}
-
 	public TreeSet<Producto> ordenarProductosPorNombreDeFormaAscendente() {
 		TreeSet<Producto> prodOrdenado = new TreeSet<Producto>(new OrdenarProdPorNombreAscendente());
 		for (Producto p : productos) {
@@ -220,17 +184,45 @@ public class Tienda {
 		Map<Integer, Double> reporte = new HashMap<Integer, Double>();
 		for (Venta venta : ventas) {
 			Integer idUsuario = venta.getIdUsuario();
-			
+
 			if (reporte.containsKey(idUsuario)) {
-			Double totalActual = reporte.get(idUsuario);
+				Double totalActual = reporte.get(idUsuario);
 				reporte.put(idUsuario, totalActual + venta.getPrecioFinal());
-				
+
 			} else {
 				reporte.put(idUsuario, venta.getPrecioFinal());
 			}
-			
+
 		}
 		return reporte;
 
+	}
+
+	public HashSet<Producto> obtenerProductos() {
+		return this.productos;
+	}
+
+	public HashSet<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(HashSet<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public ArrayList<Venta> getVentas() {
+		return ventas;
+	}
+
+	public void setVentas(ArrayList<Venta> ventas) {
+		this.ventas = ventas;
+	}
+
+	public HashSet<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(HashSet<Producto> productos) {
+		this.productos = productos;
 	}
 }

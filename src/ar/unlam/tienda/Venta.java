@@ -16,31 +16,21 @@ public class Venta {
 		nuevoId++;
 	}
 
-
-
 	public Double getPrecioFinal() {
 		return precioFinal;
 	}
-
-
 
 	public void setPrecioFinal(Double precioFinal) {
 		this.precioFinal = precioFinal;
 	}
 
-
-
 	public HashMap<Integer, ProductoYCantidad> getCarrito() {
 		return carrito;
 	}
 
-
-
 	public void setCarrito(HashMap<Integer, ProductoYCantidad> carrito) {
 		this.carrito = carrito;
 	}
-
-
 
 	public Integer getIdUsuario() {
 		return idUsuario;

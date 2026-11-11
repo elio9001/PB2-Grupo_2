@@ -18,9 +18,17 @@ public abstract class Producto {
 		this.precio = precio;
 		this.marca = marca;
 		this.stock = stock;
-		this.tieneDescuento=false;
+		this.tieneDescuento = false;
 	}
-	
+
+	public void desAgregarStock(Integer cantidad) {
+		if (cantidad >= 0) {
+			stock -= cantidad;
+		}
+	};
+
+	public abstract Double precioFinal();
+
 	public abstract Double calcularPrecioConDescuento();
 
 	public Integer getCodProducto() {
@@ -88,11 +96,4 @@ public abstract class Producto {
 		return Objects.equals(codProducto, other.codProducto);
 	}
 
-	public void desAgregarStock(Integer cantidad) {
-		if (cantidad>=0) {
-			stock-=cantidad;
-		}
-	};
-	public abstract Double precioFinal();
-	
 }

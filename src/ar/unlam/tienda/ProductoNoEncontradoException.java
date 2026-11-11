@@ -1,9 +1,9 @@
 package ar.unlam.tienda;
 
 public class ProductoNoEncontradoException extends Exception {
-
-	public ProductoNoEncontradoException(String string) {
-		// TODO Auto-generated constructor stub
+	private String mensaje;
+	public ProductoNoEncontradoException(String mensaje) {
+		this.mensaje = mensaje;
 	}
 
 }

@@ -1,9 +1,9 @@
 package ar.unlam.tienda;
 
 public class PrecioNegativoException extends Exception {
-
-	public PrecioNegativoException(String string) {
-		// TODO Auto-generated constructor stub
+	private String mensaje;
+	public PrecioNegativoException(String mensaje) {
+		this.mensaje = mensaje;
 	}
 
 }

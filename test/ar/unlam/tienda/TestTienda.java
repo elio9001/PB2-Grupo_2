@@ -100,7 +100,6 @@ public class TestTienda {
 
 	}
 
-	// --- //
 	@Test // test 6
 	public void controlarLaCantidadDeProductosAgregadosAlCarrito() throws PrecioNegativoException,
 			ProductoNoEncontradoException, CorreoInvalidoException, NombreInvalidoException {
@@ -168,7 +167,7 @@ public class TestTienda {
 		Integer cantidad = 7;
 		tienda.agregarProductoAlCarrito(idUser, 1, cantidad);
 
-		tienda.comprar(123); // ingresa el idUsuario
+		tienda.comprar(123); // ingresa el idUsuario, el tiene su propio carrito
 
 		Integer stockDisponlible = tienda.stockDeUnProducto(1);
 		assertEquals(3, stockDisponlible, 0.01);
@@ -283,8 +282,7 @@ public class TestTienda {
 		assertEquals(precioFinalEsperado, montoCalculado);
 	}
 
-	// alta usuario
-	@Test
+	@Test // test 14
 	public void registrarUnUsuarioCorrectamente() throws CorreoInvalidoException, NombreInvalidoException {
 
 		tienda.registrarUsuario(usuario1);
@@ -292,12 +290,12 @@ public class TestTienda {
 	}
 
 	/* (si no contiene “@” y termina con “.com”) */
-	@Test(expected = CorreoInvalidoException.class)
+	@Test(expected = CorreoInvalidoException.class) // test 15
 	public void correoInvalidoLanzaExcepcion() throws CorreoInvalidoException, NombreInvalidoException {
 		tienda.registrarUsuario(usuario2);
 	}
 
-	@Test
+	@Test // test 16
 	public void noSePuedenRegistrarDosCuentasConElMismoCorreo()
 			throws CorreoInvalidoException, NombreInvalidoException {
 
@@ -306,7 +304,15 @@ public class TestTienda {
 		assertEquals(1, tienda.getUsuarios().size(), 0.01);
 	}
 
-	@Test
+	@Test(expected = NombreInvalidoException.class) // test 17
+	public void lanzarNombreInvalidoExceptionCuandoSeIntenteRegistrarUnUsuarioSinNombre()
+			throws NombreInvalidoException, CorreoInvalidoException {
+
+		tienda.registrarUsuario(usuario3);
+
+	}
+
+	@Test // test 18
 	public void ordenarProductosPorNombreDeFormaAscendete() throws PrecioNegativoException {
 
 		tienda.agregarProducto(mouse);
@@ -317,7 +323,7 @@ public class TestTienda {
 		assertEquals("Teclado", pOrdenado.getLast().getDescripcion());
 	}
 
-	@Test
+	@Test // test 19
 	public void ordenarProductosPerifericosPorIdAscendenteYPrecioDescendente() throws PrecioNegativoException {
 
 		tienda.agregarProducto(teclado);
@@ -330,16 +336,9 @@ public class TestTienda {
 		assertEquals(2, pOrdenado.getLast().getCodProducto(), 0.01);
 	}
 
-	@Test(expected = NombreInvalidoException.class)
-	public void lanzarNombreInvalidoExceptionCuandoSeIntenteRegistrarUnUsuarioSinNombre()
-			throws NombreInvalidoException, CorreoInvalidoException {
-
-		tienda.registrarUsuario(usuario3);
-
-	}
-
-	@Test 
-	public void obtenerUnReporteDeVentasPorIdDeUsuario() throws CorreoInvalidoException, NombreInvalidoException, PrecioNegativoException, ProductoNoEncontradoException, CarritoVacioException, StockNoDisponibleExceptcion {
+	@Test // test 20
+	public void obtenerUnReporteDeVentasPorIdDeUsuario() throws CorreoInvalidoException, NombreInvalidoException,
+			PrecioNegativoException, ProductoNoEncontradoException, CarritoVacioException, StockNoDisponibleExceptcion {
 
 		tienda.registrarUsuario(usuario1);
 
@@ -350,21 +349,18 @@ public class TestTienda {
 
 		tienda.comprar(123); // ingresa el idUsuario
 
-		//segundo producto
-		
+		// segundo producto
+
 		tienda.agregarProducto(teclado);
 		tienda.agregarProductoAlCarrito(123, 2, 1);
 		tienda.comprar(123);
-		
 
 		Map<Integer, Double> reporteDeVentas = tienda.obtenerReporteDeVentasPorIdDeUsuario();
-		
+
 		Double posiblePrecioTotalVentasDeUsuario1 = 400000.0;
-	
 
 		assertEquals(posiblePrecioTotalVentasDeUsuario1, reporteDeVentas.get(123));
 
-		
 	}
 
 }

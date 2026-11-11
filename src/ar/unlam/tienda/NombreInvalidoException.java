@@ -1,9 +1,9 @@
 package ar.unlam.tienda;
 
 public class NombreInvalidoException extends Exception {
-
-	public NombreInvalidoException(String string) {
-		// TODO Auto-generated constructor stub
+	private String mensaje;
+	public NombreInvalidoException(String mensaje) {
+		this.mensaje = mensaje;
 	}
 
 }
