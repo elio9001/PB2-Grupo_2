@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.TreeSet;
 
 public class Tienda {
-	HashSet<Usuario> usuarios;
-	ArrayList<Venta> ventas;
-	HashSet<Producto> productos;
+	private HashSet<Usuario> usuarios;
+	private ArrayList<Venta> ventas;
+	private HashSet<Producto> productos;
 
 	public Tienda() {
 		this.usuarios = new HashSet<Usuario>();
@@ -17,9 +18,29 @@ public class Tienda {
 
 	}
 
-	public void registrarUsuario(Usuario user) {
-		this.usuarios.add(user);
+//	public void registrarUsuario(Usuario user) {
+//		this.usuarios.add(user);
+//	}
+	public void registrarUsuario(Usuario usuario) throws CorreoInvalidoException, NombreInvalidoException {
+	validarEmail(usuario);
+	validarNombreDeUsuario(usuario);
+	this.usuarios.add(usuario);
 	}
+
+
+	private void validarNombreDeUsuario(Usuario usuario) throws NombreInvalidoException {
+		if(usuario.getNombreUsuario()==null || usuario.getNombreUsuario().isEmpty()) {
+			throw new NombreInvalidoException("Nombre vacio , es invalido");
+		}
+	}
+
+	private void validarEmail(Usuario usuario) throws CorreoInvalidoException {
+		if (usuario.getCorreo() == null || !usuario.getCorreo().contains("@")
+				|| !usuario.getCorreo().endsWith(".com")) {
+			throw new CorreoInvalidoException("Correo invalido");
+
+		}
+}
 
 	public Usuario buscarUsuarioPorId(Integer idUsuario) {
 		for (Usuario usuario : usuarios) {
@@ -152,6 +173,49 @@ public class Tienda {
 	public void habilitarDescuentoAUnProducto(Integer codProducto) throws ProductoNoEncontradoException {
 		Producto producto = buscarProductoPorCodigo(codProducto);
 		producto.setTieneDescuento(true);
+	}
+
+	public HashSet<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(HashSet<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public ArrayList<Venta> getVentas() {
+		return ventas;
+	}
+
+	public void setVentas(ArrayList<Venta> ventas) {
+		this.ventas = ventas;
+	}
+
+	public HashSet<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(HashSet<Producto> productos) {
+		this.productos = productos;
+	}
+
+	public TreeSet<Producto> ordenarProductosPorNombreDeFormaAscendente() {
+		TreeSet<Producto> prodOrdenado = new TreeSet<Producto>(new OrdenarProdPorNombreAscendente());
+		for (Producto p : productos) {
+			prodOrdenado.add(p);
+		}
+		return prodOrdenado;
+	}
+
+	public TreeSet<Periferico> ordenarProductosPerifericosPorIdAscenteYPrecioDescendente() {
+		TreeSet<Periferico> pOrdenado = new TreeSet<Periferico>(
+				new OrdenarProdPerifericoPorIdAscYPrecioDesc());
+		for (Producto producto : productos) {
+			if (producto instanceof Periferico) {
+				pOrdenado.add((Periferico) producto);
+			}
+		}
+		return pOrdenado;
 	}
 
 }

@@ -9,7 +9,7 @@ public class Usuario {
 	private String nombreUsuario;
 	private HashMap<Integer, ProductoYCantidad> carrito;
 	
-	public Usuario(Integer idUser, String email, String username) {
+	public Usuario(Integer idUser,String email, String username) {
 		this.idUsuario = idUser;
 		this.correo = email;
 		this.nombreUsuario = username;
@@ -77,5 +77,5 @@ public class Usuario {
 	public void vaciarCarrito() {
 		carrito.clear();
 	}
-
+	
 }
